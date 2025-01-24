@@ -13,30 +13,30 @@ include $(src_dir)/rv64um/Makefrag
 include $(src_dir)/rv64ua/Makefrag
 include $(src_dir)/rv64uf/Makefrag
 include $(src_dir)/rv64ud/Makefrag
-include $(src_dir)/rv64uzfh/Makefrag
-include $(src_dir)/rv64uzba/Makefrag
-include $(src_dir)/rv64uzbb/Makefrag
-include $(src_dir)/rv64uzbc/Makefrag
-include $(src_dir)/rv64uzbs/Makefrag
-include $(src_dir)/rv64si/Makefrag
-include $(src_dir)/rv64ssvnapot/Makefrag
-include $(src_dir)/rv64mi/Makefrag
-include $(src_dir)/rv64mzicbo/Makefrag
-include $(src_dir)/hypervisor/Makefrag
+#include $(src_dir)/rv64uzfh/Makefrag
+#include $(src_dir)/rv64uzba/Makefrag
+#include $(src_dir)/rv64uzbb/Makefrag
+#include $(src_dir)/rv64uzbc/Makefrag
+#include $(src_dir)/rv64uzbs/Makefrag
+#include $(src_dir)/rv64si/Makefrag
+#include $(src_dir)/rv64ssvnapot/Makefrag
+#include $(src_dir)/rv64mi/Makefrag
+#include $(src_dir)/rv64mzicbo/Makefrag
+#include $(src_dir)/hypervisor/Makefrag
 endif
-include $(src_dir)/rv32ui/Makefrag
-include $(src_dir)/rv32uc/Makefrag
-include $(src_dir)/rv32um/Makefrag
-include $(src_dir)/rv32ua/Makefrag
-include $(src_dir)/rv32uf/Makefrag
-include $(src_dir)/rv32ud/Makefrag
-include $(src_dir)/rv32uzfh/Makefrag
-include $(src_dir)/rv32uzba/Makefrag
-include $(src_dir)/rv32uzbb/Makefrag
-include $(src_dir)/rv32uzbc/Makefrag
-include $(src_dir)/rv32uzbs/Makefrag
-include $(src_dir)/rv32si/Makefrag
-include $(src_dir)/rv32mi/Makefrag
+#include $(src_dir)/rv32ui/Makefrag
+#include $(src_dir)/rv32uc/Makefrag
+#include $(src_dir)/rv32um/Makefrag
+#include $(src_dir)/rv32ua/Makefrag
+#include $(src_dir)/rv32uf/Makefrag
+#include $(src_dir)/rv32ud/Makefrag
+#include $(src_dir)/rv32uzfh/Makefrag
+#include $(src_dir)/rv32uzba/Makefrag
+#include $(src_dir)/rv32uzbb/Makefrag
+#include $(src_dir)/rv32uzbc/Makefrag
+#include $(src_dir)/rv32uzbs/Makefrag
+#include $(src_dir)/rv32si/Makefrag
+#include $(src_dir)/rv32mi/Makefrag
 
 default: all
 
@@ -66,7 +66,11 @@ else
 endif
 
 %.out32: %
+ifdef GVSOC
+	gvsoc --target=rv32 --binary $< run 2> $@
+else
 	$(RISCV_SIM) --isa=rv32gc_zfh_zicboz_svnapot_zicntr_zba_zbb_zbc_zbs --misaligned $< 2> $@
+endif
 
 define compile_template
 
