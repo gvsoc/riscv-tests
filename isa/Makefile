@@ -59,10 +59,14 @@ vpath %.S $(src_dir)
 	$(RISCV_OBJDUMP) $< > $@
 
 %.out: %
+ifdef GVSOC_STDOUT
+	gvsoc --target=rv64 --binary $< run
+else
 ifdef GVSOC
 	gvsoc --target=rv64 --binary $< run 2> $@
 else
 	$(RISCV_SIM) --isa=rv64gch_zfh_zicboz_svnapot_zicntr_zba_zbb_zbc_zbs --misaligned $< 2> $@
+endif
 endif
 
 %.out32: %
